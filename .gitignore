@@ -1,2 +1,3 @@
 venv
 god
+db.sqlite3
