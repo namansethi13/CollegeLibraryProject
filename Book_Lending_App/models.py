@@ -7,3 +7,4 @@ from django.db import models
 #due date -autonow+15
 #fine=0
 
+
