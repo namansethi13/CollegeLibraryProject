@@ -4,7 +4,10 @@ from .models import Book
 from django.db.models import Q
 from .forms import Bookform
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(login_url="/user/login/")
 def index(request):
     books=Book.objects.all()
     context={
@@ -12,6 +15,8 @@ def index(request):
     }
     #print(context)
     return render(request,'viewbooks.html',context)
+
+@login_required(login_url="/user/login/")
 def removebook(request,id=0):
     if id:
         try:
@@ -24,6 +29,8 @@ def removebook(request,id=0):
         except:
             return HttpResponse('Unable to delete  ')
     return render(request,'viewbooks.html')
+
+@login_required(login_url="/user/login/")
 def modify(request,id):
      modify=Book.objects.get(b_id=id)
      form=Bookform(request.POST or None,instance=modify )
@@ -37,6 +44,8 @@ def modify(request,id):
         'form':form
     }
      return render(request,'update.html',context)
+
+@login_required(login_url="/user/login/")
 def addbook(request):
     if request.method=='POST':
         bookcode=request.POST['bookcode']
