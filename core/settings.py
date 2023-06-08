@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'Student_Details_App',
     'Books_App',
     'user',
-    'Book_Lending_App'
+    'Book_Lending_App',
 ]
 
 MIDDLEWARE = [
