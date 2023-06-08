@@ -1,0 +1,41 @@
+<div class="form-wrap">
+		<div class="tabs">
+			<h3 class="login-tab"><a href="#login-tab-content">Login</a></h3>
+		</div><!--.tabs-->
+
+		<div class="tabs-content">
+			{% if form.errors %}
+            <div>
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <p>Your username and password didn't match. Please try again.</p>
+            </div>
+            
+  			{% endif %}
+			<div id="login-tab-content active ">
+				<form class="login-form"  method="post">
+					{% csrf_token %}
+					<input type="text"  name="username" required class="input" id="user_login" autocomplete="off" placeholder="Username">
+					<input type="password"  name="password" required class="input" id="user_pass" autocomplete="off" placeholder="Password">
+					<input type="checkbox"  class="checkbox" id="remember_me">
+					<label for="remember_me">Remember me</label>
+
+					<input type="submit" class="button" value="Login">
+				</form><!--.login-form-->
+				<div class="help-text">
+					{%comment%}<p><a href="{% url 'password_reset' %}">Forget your password?</a></p>{%endcomment%}
+				</div>
+				<div class="help-text">
+					<p><a href="{% url 'users:register' %}">New to website signup now!</a></p>
+				</div><!--.help-text-->
+			</div><!--.login-tab-content-->
+		</div><!--.tabs-content-->
+	</div><!--.form-wrap-->
+
+    {% if messages %}
+{% for msg in messages %}
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  {{msg}}
+</div>
+{% endfor %}
+{% endif %}

@@ -1,0 +1,29 @@
+<div class="form-wrap">
+
+    <div id="signup-tab-content" class="active">
+        <form class="signup-form" method="post">
+            {% csrf_token %}
+            <input type="text" name="username" class="input" id="user_name" autocomplete="off" placeholder="Username">
+            <input type="email"  name="email" class="input" id="user_email" autocomplete="off" placeholder="Email">
+            <input type="password"  name="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">
+            <input type="password"  name="confirm_password"  required class="input" id="user_pass" autocomplete="off" placeholder="Confirm Password">
+            <input type="submit" class="button" value="Sign Up">
+        </form><!--.login-form-->
+        <div class="help-text">
+            <p>By signing up, you agree to our</p>
+            <p><a href="#">Terms of service</a></p>
+        </div>
+        <div class="help-text">
+            <p><a href="{% url 'users:login' %}">Already a user? Login now!</a></p>
+        </div><!--.help-text-->
+    </div><!--.signup-tab-content-->
+</div><!--.form-wrap-->
+
+{% if messages %}
+{% for msg in messages %}
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  {{msg}}
+</div>
+{% endfor %}
+{% endif %}
