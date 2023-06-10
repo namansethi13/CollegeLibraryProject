@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Books</title>
+</head>
+<body>
+    <h1>Available Books</h1>
+
+    
+     <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.code }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.description }}</td>
+                <td><a href="/books/issueforstudent/{{book.b_id}}/{{id}}" class="btn btn-primary issue-button" role="button" >ISSUE BOOK</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+ 
+</body>
+</html>
