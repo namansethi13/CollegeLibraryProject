@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from Book_Lending_App.models import BookLending
 from Student_Details_App.models import Student
+from django.contrib import messages
 
 
 @login_required(login_url="/user/login/")
@@ -93,16 +94,23 @@ def submit_enrollment(request):
         book_id=request.POST['book_id']
         book=Book.objects.get(b_id=book_id)
         print(book)
-        Studen=Student.objects.get(enrollment_no=enrlno)
-        print(Studen)
-        book.is_issued=True
-        print(book.is_issued)
-        newinst=BookLending(student=Studen,book=book)
-        newinst.save()
-        book.is_issued = True
-        book.save()
-        print("saved the entry")
-        return redirect('/books')
+        curr = request.path_info
+        try:
+            Studen=Student.objects.get(enrollment_no=enrlno)
+            print(Studen)
+            book.is_issued=True
+            print(book.is_issued)
+            newinst=BookLending(student=Studen,book=book)
+            newinst.save()
+            book.is_issued = True
+            book.save()
+            print("saved the entry")
+            return redirect('/books')
+
+        except:
+            messages.info(request,'No student found. Please recheck the enrollment number')
+            return HttpResponseRedirect("/books/")
+
 
     else:
         return HttpResponse(request,'errror occured')

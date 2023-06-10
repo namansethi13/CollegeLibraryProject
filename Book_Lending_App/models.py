@@ -14,10 +14,10 @@ class BookLending(models.Model):
     due_date = models.DateField()
     fine = models.IntegerField(default=0)
 
-    def save(self, *args, **kwargs):
-        # Set the due date as 15 days from the issue date
-        self.due_date = self.issue_date + timezone.timedelta(days=15)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     # Set the due date as 15 days from the issue date
+    #     self.due_date = self.issue_date + timezone.timedelta(days=15)
+    #     super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.student.name} - {self.book.title}"
