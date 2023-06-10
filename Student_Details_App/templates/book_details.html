@@ -1,0 +1,21 @@
+<h1>Books Issued by {{ student.name }}</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Book Title</th>
+            <th scope="col">Issue Date</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Fine</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book_lending in book_lendings %}
+        <tr>
+            <td>{{ book_lending.book.title }}</td>
+            <td>{{ book_lending.issue_date }}</td>
+            <td>{{ book_lending.due_date }}</td>
+            <td>{{ book_lending.fine }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

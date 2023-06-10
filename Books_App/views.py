@@ -2,6 +2,7 @@
 from django.shortcuts import render,HttpResponse,redirect,HttpResponseRedirect
 from .models import Book
 from django.db.models import Q
+from django.shortcuts import render, get_object_or_404
 from .forms import Bookform
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -116,7 +117,13 @@ def submit_enrollment(request):
         return HttpResponse(request,'errror occured')
     #return HttpResponse(request,'errror occured')
 
-
+def showstudentdetails(request, id):
+    book_lending = get_object_or_404(BookLending, book_id=id)
+    student = book_lending.student
+    context = {
+        'student': student
+    }
+    return render(request, 'student_details.html', context)
 
 
 

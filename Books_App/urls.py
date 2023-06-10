@@ -14,5 +14,6 @@ urlpatterns = [
     # # path('modifybook/<int:id>',views.modifybook,name="modifybook"),
      path('updatebook/<int:id>',views.modify,name="modify"),
      path('issuebook/<int:id>',views.issuebook,name="issuebook"),
-     path('issuebook/submit_enrollment',views.submit_enrollment,name="submit_enrollment")
+     path('issuebook/submit_enrollment',views.submit_enrollment,name="submit_enrollment"),
+     path('showstudentdetails/<int:id>',views.showstudentdetails,name="showstudentdetails")
 ]
