@@ -137,7 +137,7 @@ CELERY_RESULT_BACKEND = "redis://localhost:6379"
 CELERY_BEAT_SCHEDULE = {
     'update_fines': {
         'task': 'core.tasks.update_fines_task',
-        'schedule': timedelta(minutes=1),  # Run every day
+        'schedule': timedelta(days=1),  # Run every day
     },
 }
 
