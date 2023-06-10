@@ -99,8 +99,8 @@ def submit_enrollment(request):
         try:
             Studen=Student.objects.get(enrollment_no=enrlno)
             print(Studen)
-            book.is_issued=True
-            print(book.is_issued)
+            #book.is_issued=True
+            #print(book.is_issued)
             newinst=BookLending(student=Studen,book=book)
             newinst.save()
             book.is_issued = True
@@ -108,7 +108,8 @@ def submit_enrollment(request):
             print("saved the entry")
             return redirect('/books')
 
-        except:
+        except Exception as e:
+            print(e)
             messages.info(request,'No student found. Please recheck the enrollment number')
             return HttpResponseRedirect("/books/")
 
