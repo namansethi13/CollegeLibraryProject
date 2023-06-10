@@ -125,8 +125,49 @@ def showstudentdetails(request, id):
         'student': student
     }
     return render(request, 'student_details.html', context)
+def issueanotherbook(request,id):
+    
+    books = Book.objects.filter(is_issued=False)
+    context = {
+        'books': books,
+        'id':id
+    }
+    return render(request, 'issueanotherbook.html', context)
+
+    
+def issueforstudent(request,bid,sid):
+    
+    Studen=Student.objects.get(id_number=sid)
+    print(Studen)
+    book=Book.objects.get(b_id=bid)
+    newinst=BookLending(student=Studen,book=book)
+    newinst.save()
+    book.is_issued = True
+    book.save()
+    print("saved the entry")
+    return redirect('/books')
+
+    
+
+    
+    
+def returnbook(request,id):
+    book=Book.objects.get(b_id=id)
+    book.is_issued=False
+    book.save()
+    booklend=BookLending.objects.get(book=book)
+    student=booklend.student
+    student.totalfine=booklend.fine
+    student.save()
+    booklend.delete()
+    return redirect('/books')
+    
 
 
+
+
+
+        
 
     
 

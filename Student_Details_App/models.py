@@ -6,8 +6,12 @@ class Student(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     phone_number = models.CharField(max_length=20)
+    totalfine=models.IntegerField(default=0)
     def __str__(self):
         return self.name
+
+
+
     
     
 

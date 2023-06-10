@@ -63,7 +63,8 @@
         {%if i.is_issued == False %}
           <td><a href="issuebook/{{i.b_id}}" class="btn btn-primary issue-button" role="button" >ISSUE BOOK</a></td>
         {%elif i.is_issued == True %}
-          <td>ISSUED<br>
+          <td>ISSUED <a href="returnbook/{{i.b_id}}" class="btn btn-primary" role="button">RETURN</a><br>
+
             <a href="showstudentdetails/{{ i.b_id }}" >show issue details</a>
           </td>
         {% endif %}

@@ -27,6 +27,9 @@
         <th scope="col">Phone Number</th>
         <th scope="col">operation</th>
         <th scope="col">Issue Status</th>
+        <th scope="col">Total Fine</th>
+        
+
       </tr>
     </thead>
     {% for i in students %}
@@ -43,7 +46,14 @@
           <a href="updatestudent/{{i.id_number}} ">Modify</a>
         </td>
         <td><a href="showbookdetails/{{i.id_number}}" class="btn btn-primary issue-button" role="button" >SHOW ISSUED BOOK DETAILS</a></td>
-
+        <td>
+          {%if i.totalfine == 0 %}
+          <p>no dues</p>
+          {%else %}
+          {{i.totalfine }}
+          <a href="payfine/{{i.id_number}}" class="btn btn-primary" role="button">PAY FINE</a>
+          {%endif %}
+        </td>
           </tr>
           
         </tbody>

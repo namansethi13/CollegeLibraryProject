@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fine Payment Form</title>
+</head>
+<body>
+  <h1>Fine Payment</h1>
+  
+  <form action="/students/finalpay/{{id}}" method="POST">
+    {% csrf_token %}
+    <label for="amount">Enter the amount of fine to pay:</label>
+    <input type="number" id="amount" name="amount" required>
+    <br><br>
+    
+    <input type="submit" value="Pay Fine">
+    
+  </form>
+  {% if messages %}
+{% for msg in messages %}
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  {{msg}}
+</div>
+{% endfor %}
+{% endif %}
+</body>
+</html>

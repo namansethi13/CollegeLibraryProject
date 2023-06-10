@@ -15,5 +15,9 @@ urlpatterns = [
      path('updatebook/<int:id>',views.modify,name="modify"),
      path('issuebook/<int:id>',views.issuebook,name="issuebook"),
      path('issuebook/submit_enrollment',views.submit_enrollment,name="submit_enrollment"),
-     path('showstudentdetails/<int:id>',views.showstudentdetails,name="showstudentdetails")
+     path('showstudentdetails/<int:id>',views.showstudentdetails,name="showstudentdetails"),
+     path('showstudentdetails/issueanotherbook/<int:id>',views.issueanotherbook,name="issueanotherbook"),
+     path('issueforstudent/<int:bid>/<int:sid>',views.issueforstudent,name="issueforstudent"),
+      path('returnbook/<int:id>',views.returnbook,name="returnbook"),
+
 ]

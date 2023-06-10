@@ -3,6 +3,7 @@ from .models import Student
 from django.shortcuts import render,HttpResponse,redirect,HttpResponseRedirect
 from .forms import Studentform
 from Book_Lending_App.models import BookLending
+from django.contrib import messages
 
 # Create your views here.
 def studentinfo(request):
@@ -14,14 +15,29 @@ def studentinfo(request):
 def removestudent(request,id=0):
     if id:
         try:
+
+            
             remove=Student.objects.get(id_number=id)
+            print(remove)
+
+            booklend=BookLending.objects.filter(student=remove)
+            print(booklend)
+            if(len(booklend)>0):
+                for i in booklend:
+                    
+                    book=i.book
+                    book.is_issued=False
+                    book.save()
             remove.delete()
+
+
             return redirect('/students')
 
             
 
-        except:
-            return HttpResponse('Unable to delete  ')
+        except Exception as e :
+            print(e)
+            return HttpResponse('Unable to delete  ',e)
     return redirect('/students')
 def modify(request,id):
      modify=Student.objects.get(id_number=id)
@@ -90,4 +106,31 @@ def showbookdetails(request, id):
     print(student)
     print(book_lendings)
     return render(request, 'book_details.html', context)
+
+def payfine(request,id):
+    context={"id":id}
+    return render(request, 'payfine.html',context)
+
+def finalpay(request,id):
+    paidamount=request.POST['amount']
+    
+    student=Student.objects.get(id_number=id)
+    if(int(paidamount)>(student.totalfine)):
+        messages.info(request,"ERROR! Unable to pay more than the due amount")
+        return render(request, 'payfine.html')
+    print(student)
+    print("in else")
+    print(student.totalfine)
+
+
+
+    student.totalfine-=int(paidamount)
+    student.save()
+    print("saved the entry")
+    return redirect('/students')
+
+
+
+
+
 
