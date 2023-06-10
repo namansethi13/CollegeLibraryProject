@@ -13,5 +13,6 @@ urlpatterns = [
     #path('submit_enrollment/',views.submit_enrollment,name="submit_enrollment")
 
     #path('/issuebook/',)
+    path('students/',include('Student_Details_App.urls'))
     
 ]

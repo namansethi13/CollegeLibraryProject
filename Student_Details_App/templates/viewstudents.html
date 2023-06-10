@@ -15,48 +15,34 @@
 
 <body>
   <h1> Welcome </h1>
-  <a href="addbook" class="btn btn-primary" role="button"
-    style="position: fixed; top: 20px; right: 20px; z-index: 9999;">ADDBOOK</a>
+  <a href="addstudent" class="btn btn-primary" role="button"
+    style="position: fixed; top: 20px; right: 20px; z-index: 9999;">ADDSTUDENT</a>
 
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">code</th>
-        <th scope="col">title </th>
-        <th scope="col">author </th>
-        <th scope="col">description</th>
+        <th scope="col">Enrollement number</th>
+        <th scope="col">Name </th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone Number</th>
         <th scope="col">operation</th>
         <th scope="col">Issue Status</th>
       </tr>
     </thead>
-    {% for i in books %}
+    {% for i in students %}
     <tbody>
 
 
       <tr>
-        <th scope="row">{{i.code}}</th>
-        <td>{{i.title }}</td>
-        <td>{{i.author }}</td>
-        <td>{{i.description}}</td>
-        <td><a href="removebook/{{i.b_id}}">Delete</a>
+        <th scope="row">{{i.enrollment_no}}</th>
+        <td>{{i.name }}</td>
+        <td>{{i.email  }}</td>
+        <td>{{i.phone_number }}</td>
+        <td><a href="removestudent/{{i.id_number}}">Delete</a>
           <br>
-          <a href="updatebook/{{i.b_id}} ">Modify</a>
+          <a href="updatestudent/{{i.id_number}} ">Modify</a>
         </td>
-        <!-- {%if i.is_issued == False %}
-              <td><a href="issuebook/{{i.b_id}} " class="btn btn-primary" role="button">ISSUE BOOK</a></td>
-              
-              {%else%}
-
-              <td>ISSUED</td>
-              {%endif%} -->
-        {%if i.is_issued == False %}
-          <td><a href="issuebook/{{i.b_id}}" class="btn btn-primary issue-button" role="button" >ISSUE BOOK</a></td>
-        {%elif i.is_issued == True %}
-          <td>ISSUED<br>
-            <a href="showstudentdetails/{{ i.b_id }}" >show issue details</a>
-          </td>
-        {% endif %}
-        
+        <td><a href="showbookdetails/{{i.id_number}}" class="btn btn-primary issue-button" role="button" >SHOW ISSUED BOOK DETAILS</a></td>
 
           </tr>
           
