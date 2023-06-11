@@ -88,18 +88,17 @@ def showbookdetails(request, id):
     }
     return render(request, 'book_details.html', context)
 
-def payfine(request,id):
-    context={"id":id}
-    return render(request, 'payfine.html',context)
 
-def finalpay(request,id):
-    paidamount=request.POST['amount']
+def payfine(request,id,amount):
+    paidamount=amount
     
     student=Student.objects.get(id_number=id)
     if(int(paidamount)>(student.totalfine)):
         messages.info(request,"ERROR! Unable to pay more than the due amount")
+        return redirect('/students')
     student.totalfine-=int(paidamount)
     student.save()
+    messages.info(request,"Fine paid")
     return redirect('/students')
 
 

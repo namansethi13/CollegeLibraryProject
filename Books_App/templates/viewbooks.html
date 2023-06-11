@@ -12,7 +12,26 @@
 
   <title>Hello, world!</title>
 </head>
+<script>
+  function showdialog(btnid){
+    const dialog = document.querySelector("#dialog"+btnid)
+    dialog.show()
+  }
+  function closedialog(dialogid){
+    const dialog = document.querySelector("#dialog"+dialogid.slice(1))
+    dialog.close()
+  }
+  function issueenteredbook(btnid){
+    studentid = btnid.slice(1)
+    var bookId = document.getElementById("inp"+studentid).value;
+    const dialog = document.querySelector("#dialog"+btnid.slice(1))
+    dialog.close()
+    var issueBookUrl = "/books/issuebook/"+studentid+ "/" + bookId;
+    console.log(issueBookUrl)
+    window.location = issueBookUrl
 
+  }
+</script>
 <body>
   
   <h1> Welcome </h1>
@@ -48,10 +67,10 @@
         <th scope="col">Issue Status</th>
       </tr>
     </thead>
-    {% for i in books %}
     <tbody>
-
-
+      
+      
+      {% for i in books %}
       <tr>
         <th scope="row">{{i.code}}</th>
         <td>{{i.title }}</td>
@@ -69,7 +88,13 @@
               <td>ISSUED</td>
               {%endif%} -->
         {%if i.is_issued == False %}
-          <td><a href="issuebook/{{i.b_id}}" class="btn btn-primary issue-button" role="button" >ISSUE BOOK</a></td>
+          <td><a onclick="showdialog(this.id)" id={{i.b_id}} class="btn btn-primary issue-button" role="button" >ISSUE BOOK</a></td>
+          <dialog id = dialog{{i.b_id}}>
+            <P>Enter the enrollment no</P>
+            <input type="text" id=inp{{i.b_id}}>
+            <a id=b{{i.b_id}} onclick="issueenteredbook(this.id)" class="btn">Issue book</a>
+            <a id=a{{i.b_id}} onclick="closedialog(this.id)">Close</a>
+        </dialog>
         {%elif i.is_issued == True %}
           <td>ISSUED <a href="returnbook/{{i.b_id}}" class="btn btn-primary" role="button">RETURN</a><br>
 
@@ -80,8 +105,8 @@
 
           </tr>
           
+          {% endfor %}
         </tbody>
-        {% endfor %}
       </table>
       <!-- <script>
         function disableButton(button) {

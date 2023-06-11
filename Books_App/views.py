@@ -75,41 +75,24 @@ def addbook(request):
 
     else:
         return HttpResponse(request,'errror occured')
+
 @login_required(login_url="/user/login/")
-def issuebook(request,id):
-    context={"id":id}
-    return render(request,'issue.html',context)
+def issuebook(request,bid,id):
+    enrlno=id
+    book_id=bid
+    book=Book.objects.get(b_id=book_id)
+    try:
+        Studen=Student.objects.get(enrollment_no=enrlno)
+        newinst=BookLending(student=Studen,book=book)
+        newinst.save()
+        book.is_issued = True
+        book.save()
+        messages.info(request,'Book issued')
+        return redirect('/books')
 
-def submit_enrollment(request):
-    if request.method=="POST":
-        print("in post method ofd submit en")
-
-        enrlno=request.POST['enrollment_number']
-        book_id=request.POST['book_id']
-        book=Book.objects.get(b_id=book_id)
-        print(book)
-        curr = request.path_info
-        try:
-            Studen=Student.objects.get(enrollment_no=enrlno)
-            print(Studen)
-            #book.is_issued=True
-            #print(book.is_issued)
-            newinst=BookLending(student=Studen,book=book)
-            newinst.save()
-            book.is_issued = True
-            book.save()
-            print("saved the entry")
-            return redirect('/books')
-
-        except Exception as e:
-            print(e)
-            messages.info(request,'No student found. Please recheck the enrollment number')
-            return HttpResponseRedirect("/books/")
-
-
-    else:
-        return HttpResponse(request,'errror occured')
-    #return HttpResponse(request,'errror occured')
+    except Exception as e:
+        messages.info(request,'No student found. Please recheck the enrollment number')
+        return HttpResponseRedirect("/books/")
 
 def showstudentdetails(request, id):
     book_lending = get_object_or_404(BookLending, book_id=id)
