@@ -57,8 +57,7 @@
 
     <form action="searchstudent" method="POST">
       {%csrf_token%}
-        <input type="text" name="search" style="padding: 5px; width: 200px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;" placeholder="Search...">
-        <input type="submit" value="Go" style="padding: 5px 10px; background: #555; color: #fff; border: none; cursor: pointer; font-size: 14px;">
+        <input type="text" id= "search" name="search" style="padding: 5px; width: 200px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;" placeholder="Search by name..." onkeyup="searchInTable()">
     </form>
 </div>
   <a href="addstudent" class="btn btn-primary" role="button"
@@ -73,7 +72,7 @@
   {% endfor %}
   {% endif %}
 
-  <table class="table">
+  <table class="table" id="studenttable">
     <thead>
       <tr>
         <th scope="col">Enrollement number</th>
@@ -164,5 +163,31 @@
     console.log("#dialog"+btnid+"fine")
     dialog.show()
   }
+
+
+
+
+  function searchInTable() {
+
+var input, filter, table, tr, td, i, txtValue;
+input = document.getElementById("search");
+filter = input.value.toUpperCase();
+table = document.getElementById("studenttable");
+tr = table.getElementsByTagName("tr");
+
+// Loop through all table rows, and hide those who don't match the search query
+for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+}
+}
+
 </script>
 </html>

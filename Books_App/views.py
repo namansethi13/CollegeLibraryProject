@@ -150,26 +150,6 @@ def returnbook(request,id):
 #     context = {'books': books, 'query': query}
 #     return render(request, 'search_results.html', context)
 
-        
-
-def searchbook(request):
-    if request.method == "POST":
-        searched = request.POST['search']
-        print(searched)
-        books = Book.objects.filter(
-            Q(code__icontains=searched) |       # Search in the 'code' field
-            Q(title__icontains=searched) |      # Search in the 'title' field
-            Q(author__icontains=searched))     # Search in the 'author' field
-             
-        
-        context = {
-            'books': books
-        }
-    else:
-        context = {}
-
-    return render(request, 'viewbooks.html', context)
-
 
 
     

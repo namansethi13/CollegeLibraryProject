@@ -13,5 +13,4 @@ path('removestudent/<int:id>',views.removestudent,name="removestudent"),
      path('showbookdetails/<int:id>',views.showbookdetails,name="showbookdetails"),
      path('payfine/<int:id>/<int:amount>',views.payfine,name="payfine"),
      path('issuebookforstudent/<int:id>/<str:bid>',views.issuebookforstudent,name="issuebookforstudent"),
-     path('searchstudent',views.searchstudent,name="searchstudent")
 ]

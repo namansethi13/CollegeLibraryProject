@@ -9,19 +9,19 @@
     <a href="/books" style="display: inline-block; padding: 10px 20px; background-color: #040208; color: #f2eef6; text-decoration: none; border-radius: 4px; transition: background-color 0.3s; position: fixed; top: 0; left: 0;">Back</a>
     <form action="searchbook" method="POST">
         {%csrf_token%}
-          <input type="text" name="search" style="padding: 5px; width: 200px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;" placeholder="Search...">
-          <input type="submit" value="Go" style="padding: 5px 10px; background: #555; color: #fff; border: none; cursor: pointer; font-size: 14px;">
+          <input type="text" id="search" onkeyup="searchInTable()" style="margin-left: 100px;padding: 5px; width: 200px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;" placeholder="Search by code...">
       </form>
     <h1>Available Books</h1>
 
     
-     <table>
+     <table id="booktable">
         <thead>
             <tr>
                 <th>Code</th>
                 <th>Title</th>
                 <th>Author</th>
                 <th>Description</th>
+                <th>issue another book</th>
             </tr>
         </thead>
         <tbody>
@@ -39,4 +39,29 @@
 
  
 </body>
+
+
+<script>
+    function searchInTable() {
+
+var input, filter, table, tr, td, i, txtValue;
+input = document.getElementById("search");
+filter = input.value.toUpperCase();
+table = document.getElementById("booktable");
+tr = table.getElementsByTagName("tr");
+
+// Loop through all table rows, and hide those who don't match the search query
+for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+}
+}
+</script>
 </html>

@@ -18,7 +18,5 @@ urlpatterns = [
      path('showstudentdetails/issueanotherbook/<int:id>',views.issueanotherbook,name="issueanotherbook"),
      path('issueforstudent/<int:bid>/<int:sid>',views.issueforstudent,name="issueforstudent"),
      path('returnbook/<int:id>',views.returnbook,name="returnbook"),
-     path('searchbook',views.searchbook,name="searchbook"),
-
 
 ]

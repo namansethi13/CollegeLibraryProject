@@ -34,15 +34,14 @@
 </script>
 <body>
   
-  <a href="/" style="display: inline-block; padding: 10px 20px; background-color: #040208; color: #f2eef6; text-decoration: none; border-radius: 4px; position: fixed; top: 0; left: 0;">HOME</a>
+  <a href="/"  style="display: inline-block; padding: 10px 20px; background-color: #040208; color: #f2eef6; text-decoration: none; border-radius: 4px; position: fixed; top: 0; left: 0;">HOME</a>
 
     
     <h1 style="margin-left: 100px;">welcome</h1>
   <div style="position: absolute; top: 10px; right: 10px;">
     <form action="searchbook" method="POST">
       {%csrf_token %}
-        <input type="text" name="search" style="padding: 5px; width: 200px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;" placeholder="Search...">
-        <input type="submit" value="Go" style="padding: 5px 10px; background: #555; color: #fff; border: none; cursor: pointer; font-size: 14px;">
+        <input type="text" onkeyup="searchInTable()" name="search" style="padding: 5px; width: 200px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;" placeholder="Search by title..." id="search">
     </form>
 </div>
 
@@ -59,7 +58,7 @@
     style="position: fixed; top: 8px;
     right: 283px;z-index: 9999;">ADDBOOK</a>
 
-  <table class="table">
+  <table class="table" id="booktable">
     <thead>
       <tr>
         <th scope="col">code</th>
@@ -96,7 +95,7 @@
             <P>Enter the enrollment no</P>
             <input type="text" id=inp{{i.b_id}}>
             <a id=b{{i.b_id}} onclick="issueenteredbook(this.id)" class="btn">Issue book</a>
-            <a id=a{{i.b_id}} onclick="closedialog(this.id)">Close</a>
+            <a id=a{{i.b_id}} onclick="closedialog(this.id)" class="btn">Close</a>
         </dialog>
         {%elif i.is_issued == True %}
           <td>ISSUED <a href="returnbook/{{i.b_id}}" class="btn btn-primary" role="button">RETURN</a><br>
@@ -134,5 +133,27 @@
 
 </body>
 </body>
+<script>
+    function searchInTable() {
 
+var input, filter, table, tr, td, i, txtValue;
+input = document.getElementById("search");
+filter = input.value.toUpperCase();
+table = document.getElementById("booktable");
+tr = table.getElementsByTagName("tr");
+
+// Loop through all table rows, and hide those who don't match the search query
+for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+}
+}
+</script>
 </html>

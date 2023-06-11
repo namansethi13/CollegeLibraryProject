@@ -103,24 +103,6 @@ def payfine(request,id,amount):
 
 
 
-def searchstudent(request):
-    if request.method == "POST":
-        searched = request.POST['search']
-        students = Student.objects.filter(
-            Q(enrollment_no__icontains=searched) |      # Search in the 'enrollment_no' field
-            Q(name__icontains=searched) |               # Search in the 'name' field
-            Q(email__icontains=searched) |              # Search in the 'email' field
-            Q(phone_number__icontains=searched)         # Search in the 'phone_number' field
-        )
-        context = {
-            'students': students
-        }
-    else:
-        context = {}
-
-    return render(request, 'viewstudents.html', context)
-
-
 def issuebookforstudent(request , id , bid):
     student = Student.objects.get(id_number=id)
     try:
