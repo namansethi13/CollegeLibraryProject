@@ -69,6 +69,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'dict_key': 'Student_Details_App.templates.templatetags.dict_key',
+            }
         },
     },
 ]

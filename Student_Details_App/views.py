@@ -5,13 +5,18 @@ from .forms import Studentform
 from Book_Lending_App.models import BookLending
 from django.contrib import messages
 from django.db.models import Q
-
+from Books_App.models import Book
 # Create your views here.
 def studentinfo(request):
     students=Student.objects.all()
+    no_of_books={}
     context={
-        'students':students
+        'students':students,
+        'no_of_books' : no_of_books
     }
+    for student in students:
+        BL = BookLending.objects.filter(student=student)
+        no_of_books[student.enrollment_no] = len(BL)
     return render(request,'viewstudents.html',context)
 def removestudent(request,id=0):
     if id:
@@ -19,10 +24,7 @@ def removestudent(request,id=0):
 
             
             remove=Student.objects.get(id_number=id)
-            print(remove)
-
             booklend=BookLending.objects.filter(student=remove)
-            print(booklend)
             if(len(booklend)>0):
                 for i in booklend:
                     
@@ -37,8 +39,7 @@ def removestudent(request,id=0):
             
 
         except Exception as e :
-            print(e)
-            return HttpResponse('Unable to delete  ',e)
+            return HttpResponse('Unable to delete')
     return redirect('/students')
 def modify(request,id):
      modify=Student.objects.get(id_number=id)
@@ -85,8 +86,6 @@ def showbookdetails(request, id):
         'student': student,
         'book_lendings': book_lendings
     }
-    print(student)
-    print(book_lendings)
     return render(request, 'book_details.html', context)
 
 def payfine(request,id):
@@ -99,16 +98,8 @@ def finalpay(request,id):
     student=Student.objects.get(id_number=id)
     if(int(paidamount)>(student.totalfine)):
         messages.info(request,"ERROR! Unable to pay more than the due amount")
-        return render(request, 'payfine.html')
-    print(student)
-    print("in else")
-    print(student.totalfine)
-
-
-
     student.totalfine-=int(paidamount)
     student.save()
-    print("saved the entry")
     return redirect('/students')
 
 
@@ -116,7 +107,6 @@ def finalpay(request,id):
 def searchstudent(request):
     if request.method == "POST":
         searched = request.POST['search']
-        print(searched)
         students = Student.objects.filter(
             Q(enrollment_no__icontains=searched) |      # Search in the 'enrollment_no' field
             Q(name__icontains=searched) |               # Search in the 'name' field
@@ -131,5 +121,22 @@ def searchstudent(request):
 
     return render(request, 'viewstudents.html', context)
 
+
+def issuebookforstudent(request , id , bid):
+    student = Student.objects.get(id_number=id)
+    try:
+        book = Book.objects.get(code=bid)
+    except Exception as e:
+        messages.info(request,"Book doesn't exist")
+        return redirect('/students')
+    booklend = BookLending.objects.filter(student=student,book=book)
+    if len(booklend)>0:
+        messages.info(request,"Book is already issued to the student")
+        return redirect('/students')
+    else:
+        NewBookLend = BookLending(student=student,book=book)
+        NewBookLend.save()
+        messages.info(request,"Book Issued")
+        return redirect('/students')
 
 
