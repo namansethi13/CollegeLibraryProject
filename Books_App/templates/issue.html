@@ -7,9 +7,9 @@
     <h1>Student Enrollment Form</h1>
     <form action="submit_enrollment" method="post">
         {% csrf_token %}
-        <input type="hidden" id="book_id" name="book_id" value="{{id}}">
+        <input type="hidden" id="book_id" name="book_id" value="{{id}}" >
         <label for="enrollment_number">Enrollment Number:</label>
-        <input type="text" id="enrollment_number" name="enrollment_number" required>
+        <input type="text" id="enrollment_number" name="enrollment_number" required maxlength="12">
         <br><br>
         <input type="submit" value="Submit">
     </form>

@@ -4,6 +4,7 @@ from django.shortcuts import render,HttpResponse,redirect,HttpResponseRedirect
 from .forms import Studentform
 from Book_Lending_App.models import BookLending
 from django.contrib import messages
+from django.db.models import Q
 
 # Create your views here.
 def studentinfo(request):
@@ -131,6 +132,23 @@ def finalpay(request,id):
 
 
 
+def searchstudent(request):
+    if request.method == "POST":
+        searched = request.POST['search']
+        print(searched)
+        students = Student.objects.filter(
+            Q(enrollment_no__icontains=searched) |      # Search in the 'enrollment_no' field
+            Q(name__icontains=searched) |               # Search in the 'name' field
+            Q(email__icontains=searched) |              # Search in the 'email' field
+            Q(phone_number__icontains=searched)         # Search in the 'phone_number' field
+        )
+        context = {
+            'students': students
+        }
+    else:
+        context = {}
+
+    return render(request, 'viewstudents.html', context)
 
 
 

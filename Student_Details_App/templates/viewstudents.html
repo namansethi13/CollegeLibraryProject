@@ -15,8 +15,17 @@
 
 <body>
   <h1> Welcome </h1>
+  <div style="position: absolute; top: 10px; right: 10px;">
+
+    <form action="searchstudent" method="POST">
+      {%csrf_token%}
+        <input type="text" name="search" style="padding: 5px; width: 200px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;" placeholder="Search...">
+        <input type="submit" value="Go" style="padding: 5px 10px; background: #555; color: #fff; border: none; cursor: pointer; font-size: 14px;">
+    </form>
+</div>
   <a href="addstudent" class="btn btn-primary" role="button"
-    style="position: fixed; top: 20px; right: 20px; z-index: 9999;">ADDSTUDENT</a>
+    style="position: fixed; top: 8px;
+    right: 283px; z-index: 9999;">ADDSTUDENT</a>
 
   <table class="table">
     <thead>
@@ -45,6 +54,7 @@
           <br>
           <a href="updatestudent/{{i.id_number}} ">Modify</a>
         </td>
+        
         <td><a href="showbookdetails/{{i.id_number}}" class="btn btn-primary issue-button" role="button" >SHOW ISSUED BOOK DETAILS</a></td>
         <td>
           {%if i.totalfine == 0 %}
