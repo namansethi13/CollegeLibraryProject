@@ -55,27 +55,20 @@ def addbook(request):
     if request.method=='POST':
         bookcode=request.POST['bookcode']
         namebook=request.POST['bookname']
-        #print(bookname)#debug
+        
         author=request.POST['author']
-        #price=int(request.POST['price'])
+        
         desc=request.POST['desc']
-        #discount=int(request.POST['discount'])
-        new_book=Book(code=bookcode,title=namebook,author=author,description=desc)
-        # new_book.save()
-        #image=request.FILES.get('image')
-        # if image:
-        #     return HttpResponse('uploaded sucessfully')
-        # else:
-        #     return HttpResponse('error in uploading img')
+        if Book.objects.filter(code=bookcode).exists():
+            messages.info(request, 'Book code already exists.')
+            return redirect('/books')
+
+        else:
+
+            new_book=Book(code=bookcode,title=namebook,author=author,description=desc)
         
-        
-        
-        # price=int(request.POST['price'])
-        # desc=request.POST['desc']
-        # discount=int(request.POST['discount'])
-        # new_book=book(name=namebook,author_name=aname,price=price,description=desc,discount=discount)
-        new_book.save()
-        return redirect('/books')
+            new_book.save()
+            return redirect('/books')
 
     elif request.method=='GET':
         return render(request,'addbook.html')
