@@ -136,6 +136,8 @@ def issuebookforstudent(request , id , bid):
     else:
         NewBookLend = BookLending(student=student,book=book)
         NewBookLend.save()
+        book.is_issued = True
+        book.save()
         messages.info(request,"Book Issued")
         return redirect('/students')
 
