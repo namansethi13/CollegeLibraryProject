@@ -63,40 +63,21 @@ def addstudent(request):
         #price=int(request.POST['price'])
         phone=request.POST['phone']
         #discount=int(request.POST['discount'])
-        new_student=Student(enrollment_no=enrollno,name=name,email=email,phone_number=phone)
-        
-        new_student.save()
-        return redirect('/students')
+        if Student.objects.filter(enrollment_no=enrollno).exists():
+            messages.info(request, 'Enrollment number already exists.')
+            return redirect('/students')
+        else:
+
+            new_student=Student(enrollment_no=enrollno,name=name,email=email,phone_number=phone)
+            new_student.save()
+            return redirect('/students')
 
     elif request.method=='GET':
         return render(request,'addstudent.html')
 
     else:
         return HttpResponse(request,'errror occured')
-# def showbookdetails(request,id):
-#     entry=Student.objects.get(id_number=id)
-#     print(entry.enrollment_no)
-#     newentry=BookLending.objects.get(student=entry.id_number)
-#     print(newentry)
-#     return HttpResponse(request,'done occured')
-# def dashboard(request):
-#     books_of_student = BookLending.objects.filter(student=request.user.id)
-        #print(events_of_ngo)
 
-        # print(request.user.ngomodel.event_set.all())
-    #     return render(request,'dashboard.html',context={"events_list": events_of_ngo})
-    # else:
-    #     return redirect(reverse_lazy('login'))
-# def showbookdetails(request, student_id):
-#     student = Student.objects.get(id_number=student_id)
-#     book_lendings = BookLending.objects.filter(student=student)
-#     context = {
-#         'student': student,
-#         'book_lendings': book_lendings
-#     }
-#     print(student)
-#     print(book_lendings)
-#     return render(request, 'book_details.html', context)
 def showbookdetails(request, id):
     student = Student.objects.get(id_number=id)
     book_lendings = BookLending.objects.filter(student=student)
