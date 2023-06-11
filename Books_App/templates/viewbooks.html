@@ -16,6 +16,13 @@
 <body>
   
   <h1> Welcome </h1>
+  <div style="position: absolute; top: 10px; right: 10px;">
+    <form action="searchbook" method="POST">
+      {%csrf_token %}
+        <input type="text" name="search" style="padding: 5px; width: 200px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;" placeholder="Search...">
+        <input type="submit" value="Go" style="padding: 5px 10px; background: #555; color: #fff; border: none; cursor: pointer; font-size: 14px;">
+    </form>
+</div>
 
   
   {% if messages %}
@@ -27,7 +34,8 @@
   {% endfor %}
   {% endif %}
   <a href="addbook" class="btn btn-primary" role="button"
-    style="position: fixed; top: 20px; right: 20px; z-index: 9999;">ADDBOOK</a>
+    style="position: fixed; top: 8px;
+    right: 283px;z-index: 9999;">ADDBOOK</a>
 
   <table class="table">
     <thead>

@@ -6,6 +6,11 @@
     <title>Available Books</title>
 </head>
 <body>
+    <form action="searchbook" method="POST">
+        {%csrf_token%}
+          <input type="text" name="search" style="padding: 5px; width: 200px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;" placeholder="Search...">
+          <input type="submit" value="Go" style="padding: 5px 10px; background: #555; color: #fff; border: none; cursor: pointer; font-size: 14px;">
+      </form>
     <h1>Available Books</h1>
 
     

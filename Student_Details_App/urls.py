@@ -12,5 +12,6 @@ path('removestudent/<int:id>',views.removestudent,name="removestudent"),
      path('addstudent',views.addstudent,name="addstudent"),
      path('showbookdetails/<int:id>',views.showbookdetails,name="showbookdetails"),
      path('payfine/<int:id>',views.payfine,name="payfine"),
-     path('finalpay/<int:id>',views.finalpay,name="finalpay")
+     path('finalpay/<int:id>',views.finalpay,name="finalpay"),
+     path('searchstudent',views.searchstudent,name="searchstudent")
 ]
