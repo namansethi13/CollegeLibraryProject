@@ -35,7 +35,10 @@
   }
 </script>
 <body>
-  <h1> Welcome </h1>
+  <a href="/" style="display: inline-block; padding: 10px 20px; background-color: #040208; color: #f2eef6; text-decoration: none; border-radius: 4px; position: fixed; top: 0; left: 0;">HOME</a>
+
+    
+    <h1 style="margin-left: 100px;">welcome</h1>
   <div style="position: absolute; top: 10px; right: 10px;">
 
     <form action="searchstudent" method="POST">
@@ -105,7 +108,7 @@
             <P>Enter the book id</P>
             <input type="text" id=inp{{i.id_number}}>
             <a id=b{{i.id_number}} onclick="issueenteredbook(this.id)" class="btn">Issue book</a>
-            <a id=a{{i.id_number}} onclick="closedialog(this.id)">Close</a>
+            <a id=a{{i.id_number}} onclick="closedialog(this.id)" class="btn">Close</a>
         </dialog>
       </tr> 
           
